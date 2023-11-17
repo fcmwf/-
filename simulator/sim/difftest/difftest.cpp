@@ -76,10 +76,21 @@ void difftest_sync(){
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   // check gpr
   // Lab3 TODO: implement the regfile check function, return false if any difference, and output some infomation of the difference
-
+  if(memcmp(ref_r->gpr, sim_cpu.gpr, sizeof(sim_cpu.gpr))){
+    printf("gpr different:\n");
+    for(int i=0;i<32;i++){
+      if(ref_r->gpr[i]!=sim_cpu.gpr[i]){
+        printf("gpr[%d] different:\nexpected: %x mycpu:%x\n",i,ref_r->gpr[i],sim_cpu.gpr[i]);
+      }
+    }
+    return false;
+  }
   // check pc
   // Lab3 TODO: implement the pc check function, return false if any difference, and output some infomation of the difference
-
+  if(pc!=sim_cpu.pc){
+    printf("pc different:\nexpected: %x mycpu:%x\n",pc,sim_cpu.pc);
+    return false;
+  }
   const char *csr_names[] = {"mepc", "mstatus", "mcause", "mtvec"};
   // check csr
   // Lab4 TODO: (In Lab3, you can ignore this part.)implement the csr check function, return false if any difference, and output some infomation of the difference

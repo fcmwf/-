@@ -40,6 +40,10 @@ COLOR_NONE  		= \033[0m
 ## Lab1 TODO: add C compile rule
 
 # Compile assembly to object file
+$(TAR_DIR)/%.o: %.c
+	@mkdir -p $(dir $@) && echo "$(COLOR_YELLOW)[AS]$(COLOR_NONE) $<"
+	@$(AS) $(AFLAGS) -c -o $@ $(realpath $<)
+
 $(TAR_DIR)/%.o: %.S
 	@mkdir -p $(dir $@) && echo "$(COLOR_YELLOW)[AS]$(COLOR_NONE) $<"
 	@$(AS) $(AFLAGS) -c -o $@ $(realpath $<)
@@ -56,6 +60,8 @@ $(IMAGE).elf: $(OBJS) $(LIBS)
 ## Lab1 TODO: add disassemble command here
 	
 	@$(OBJ_COPY) -O binary $@ $(IMAGE).bin
+	@$(OBJ_DUMP) -d $(IMAGE).elf > $(IMAGE).txt
+
 
 image: $(IMAGE).elf
 

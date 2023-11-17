@@ -24,6 +24,9 @@ struct inst_log{
   word_t inst;
 };
 
+struct inst_log trace_queue[16];
+int trace_ptr = 0;
+
 
 uint32_t *cpu_mstatus = NULL, *cpu_mtvec = NULL, *cpu_mepc = NULL, *cpu_mcause = NULL;
 // load the state of your simulated cpu into sim_cpu
@@ -40,8 +43,11 @@ uint64_t g_nr_guest_inst = 0;
 // simulate a single cycle
 void single_cycle() {
 // Lab2 TODO: implement the single cycle function of your cpu
-
-  // m_trace->dump(sim_time++); 
+  dut->clk=1;
+  dut->eval();
+  dut->clk=0;
+  dut->eval();
+  //m_trace->dump(sim_time++); 
   if(dut->commit_wb == 1) set_state();
 }
 
@@ -74,6 +80,7 @@ SimState sim_state = { .state = SIM_STOP };
 void cpu_exec(unsigned int n){
   switch (sim_state.state) {
     case SIM_END: case SIM_ABORT: case SIM_QUIT:
+      print_itrace();
       printf("Program execution has ended. To restart the program, exit NPC and run again.\n");
       return;
     default: sim_state.state = SIM_RUNNING;
@@ -96,11 +103,17 @@ void cpu_exec(unsigned int n){
         difftest_sync();
       }
       // Lab3 TODO: use difftest_step function here to execute difftest
-      
+      difftest_step();
       g_nr_guest_inst++;
       npc_cpu_uncache_pre = dut->uncache_read_wb;
     }
     // your cpu step a cycle
+    if (dut->commit_wb) {    //记录
+      trace_queue[trace_ptr].pc=dut->pc_cur;
+      trace_queue[trace_ptr].inst=dut->inst;
+      trace_ptr++;
+      trace_ptr = trace_ptr%16;
+    }
     single_cycle();
 
 #ifdef DEVICE
@@ -118,7 +131,9 @@ void cpu_exec(unsigned int n){
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           sim_state.halt_pc);
       // fall through
-    case SIM_QUIT: statistic();
+    case SIM_QUIT: 
+      print_itrace();
+      statistic();
   }
 }
 
@@ -165,4 +180,11 @@ void isa_reg_display() {
 
 void print_itrace() {
   // Lab2 HINT: you can implement this function to help you print the instruction trace
+  for(int i=0;i<16;i++){
+    char buffer[1024];
+    disassemble(buffer,1024,(uint64_t)trace_queue[i].pc,(uint8_t *)&trace_queue[i].inst,4);
+    std::cout 
+        <<"pc:  "<<std::hex<<trace_queue[i].pc<<"\n"
+        <<"inst:  "<<buffer<<"\n";
+  }
 }

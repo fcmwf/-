@@ -36,12 +36,19 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   // Lab2 TODO: implement the quit command
-  return 0;
+  return -1;
 }
 
 static int cmd_si(char *args) {
   char *arg = strtok(NULL, " ");
   // Lab2 TODO: implement the si [N] command
+  if (arg == NULL) {
+    /* no argument given */
+    cpu_exec(1);
+    return 0;
+  }
+  int n = atoi(arg);
+  cpu_exec(n);
   return 0;
 }
 
@@ -53,7 +60,7 @@ static int cmd_info(char *args) {
   } 
   else if(strcmp(arg, "r") == 0) {
   // Lab2 TODO: implement the info r command
-
+    isa_reg_display ();
   } 
   else {
     printf("Usage: info r\n");
