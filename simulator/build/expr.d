@@ -1,5 +1,5 @@
-expr.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb/expr.cpp \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/common.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/generated/autoconf.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/macro.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/debug.h
+expr.o: /home/fcmwf/CECS-lab/simulator/sim/sdb/expr.cpp \
+ /home/fcmwf/CECS-lab/simulator/sim/include/common.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/generated/autoconf.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/macro.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/debug.h

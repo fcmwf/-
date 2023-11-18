@@ -10,7 +10,10 @@ module Decode(
     output logic [ 1:0] alu_rs2_sel,
     output logic [ 0:0] wb_rf_sel,
     output logic [ 4:0] br_type,
-    output logic [ 2:0] csr_op
+    output logic [ 2:0] csr_op,
+
+    output logic [ 0:0] exp_en,
+    output logic [ 0:0] mret_en
 );
     // normal decode 
     wire [4:0] rd = inst[11:7];
@@ -154,5 +157,14 @@ module Decode(
         endcase
     end
     // Lab4 TODO: you may need to decode for ecall and mret specially here
-
+    always_comb begin : ecall_mret_decode
+        exp_en=0;
+        mret_en=0;
+        if(inst == `INST_ECALL) begin
+            exp_en=1;
+        end
+        else if(inst == `INST_MRET) begin
+            mret_en=1;
+        end
+    end
 endmodule

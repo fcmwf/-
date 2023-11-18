@@ -6,8 +6,15 @@ module CSR(
     input  logic [11:0] waddr,
     input  logic [ 0:0] we,
     input  logic [31:0] wdata,
-    output logic [31:0] rdata
+    output logic [31:0] rdata,
     // Lab4 TODO: you need to add some input or output pors to implement CSRs' special functions
+    input  logic [31:0] mcause_in,
+    input  logic [31:0] pc_wb,
+    input  logic [ 0:0] exception_en,
+    output logic [31:0] mtvec_global,
+    output logic [31:0] mstatus_global,
+    output logic [31:0] mepc_global,
+    input  logic [ 0:0] mret_en
 );
     import "DPI-C" function void set_csr_ptr(input logic [31:0] m1 [], input logic [31:0] m2 [], input logic [31:0] m3 [], input logic [31:0] m4 []);
 
@@ -17,8 +24,14 @@ module CSR(
             mstatus <= 32'h0;
         end
         // Lab4 TODO: implement mstatus
+        else if(exception_en) begin
+            mstatus <= {mstatus[31:12],mstatus[8:0],3'b110};
+        end
+        else if(mret_en) begin
+            mstatus <= {mstatus[31:12],3'b001,mstatus[11:3]};
+        end
         else if(waddr==`CSR_MSTATUS && we) begin
-            mstatus <= wdata;
+            mstatus <= {wdata[31],8'b0,wdata[22:0]};
         end
     end
 
@@ -29,7 +42,7 @@ module CSR(
         end
         // Lab4 TODO: implement mtvec
         else if(waddr==`CSR_MTVEC && we) begin
-            mtvec <= wdata;
+            mtvec <= {wdata[31:2],2'b0};    //不一定
         end
     end
 
@@ -39,6 +52,9 @@ module CSR(
             mcause <= 32'h0;
         end
         // Lab4 TODO: implement mcause
+        else if(exception_en) begin
+            mcause <= mcause_in;
+        end
         else if(waddr==`CSR_MCAUSE && we) begin
             mcause <= wdata;
         end
@@ -50,11 +66,19 @@ module CSR(
             mepc <= 32'h0;
         end
         // Lab4 TODO: implement mepc
+        else if(exception_en) begin
+            mepc <= pc_wb;
+        end
         else if(waddr==`CSR_MEPC && we) begin
             mepc <= wdata;
         end
     end
 
+    always_ff @(posedge clk) begin
+        mstatus_global <= mstatus;
+        mtvec_global   <= mtvec;
+        mepc_global    <= mepc;
+    end
     // read
     always_comb begin
         case(raddr)

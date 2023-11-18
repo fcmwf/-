@@ -1,4 +1,4 @@
-/home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/build/riscv32/src/sb.o: \
- /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/src/sb.S \
- /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/include/riscv_test.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/include/test_macros.h
+/home/fcmwf/CECS-lab/software/picotest/build/riscv32/src/sb.o: \
+ /home/fcmwf/CECS-lab/software/picotest/src/sb.S \
+ /home/fcmwf/CECS-lab/software/picotest/include/riscv_test.h \
+ /home/fcmwf/CECS-lab/software/picotest/include/test_macros.h

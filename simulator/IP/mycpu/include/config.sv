@@ -80,3 +80,12 @@
 `define MRET            1
 `define FENCEI          2
 `define CSR_RW          3
+
+
+`define EXC_ECALL  8
+`define MODE_U  0
+`define MODE_S  1
+`define MODE_H  2
+`define MODE_M  3
+`define INST_ECALL 32'h0000_0073
+`define INST_MRET  32'h3020_0073

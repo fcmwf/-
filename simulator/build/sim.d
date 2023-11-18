@@ -1,4 +1,4 @@
-sim.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sim.cpp \
+sim.o: /home/fcmwf/CECS-lab/simulator/sim/sim.cpp \
  /usr/local/share/verilator/include/verilated_dpi.h \
  /usr/local/share/verilator/include/verilatedos.h \
  /usr/local/share/verilator/include/verilated.h \
@@ -11,9 +11,9 @@ sim.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sim.cpp \
  /usr/local/share/verilator/include/verilated_vcd_c.h \
  /usr/local/share/verilator/include/verilated_trace.h \
  /usr/local/share/verilator/include/verilated_trace_defs.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/debug.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/common.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/generated/autoconf.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/macro.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/disasm.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/memory/paddr.h
+ /home/fcmwf/CECS-lab/simulator/sim/include/debug.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/common.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/generated/autoconf.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/macro.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/disasm.h \
+ /home/fcmwf/CECS-lab/simulator/sim/memory/paddr.h

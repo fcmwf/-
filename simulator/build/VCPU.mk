@@ -35,7 +35,7 @@ VM_PREFIX = VCPU
 VM_MODPREFIX = VCPU
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include \
+	-I/home/fcmwf/CECS-lab/simulator/sim/include \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
@@ -62,13 +62,13 @@ VM_USER_CLASSES = \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/io \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/difftest \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/memory \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb \
-	/home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/utils \
+	/home/fcmwf/CECS-lab/simulator/sim \
+	/home/fcmwf/CECS-lab/simulator/sim/device \
+	/home/fcmwf/CECS-lab/simulator/sim/device/io \
+	/home/fcmwf/CECS-lab/simulator/sim/difftest \
+	/home/fcmwf/CECS-lab/simulator/sim/memory \
+	/home/fcmwf/CECS-lab/simulator/sim/sdb \
+	/home/fcmwf/CECS-lab/simulator/sim/utils \
 
 
 ### Default rules...
@@ -80,39 +80,39 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-build.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/build.cpp
+build.o: /home/fcmwf/CECS-lab/simulator/sim/build.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-device.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/device.c
+device.o: /home/fcmwf/CECS-lab/simulator/sim/device/device.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-disk.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/disk.c
+disk.o: /home/fcmwf/CECS-lab/simulator/sim/device/disk.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-map.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/io/map.c
+map.o: /home/fcmwf/CECS-lab/simulator/sim/device/io/map.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-mmio.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/io/mmio.c
+mmio.o: /home/fcmwf/CECS-lab/simulator/sim/device/io/mmio.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-keyboard.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/keyboard.c
+keyboard.o: /home/fcmwf/CECS-lab/simulator/sim/device/keyboard.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-serial.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/serial.c
+serial.o: /home/fcmwf/CECS-lab/simulator/sim/device/serial.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-timer.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/timer.c
+timer.o: /home/fcmwf/CECS-lab/simulator/sim/device/timer.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-vga.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/vga.c
+vga.o: /home/fcmwf/CECS-lab/simulator/sim/device/vga.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-difftest.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/difftest/difftest.cpp
+difftest.o: /home/fcmwf/CECS-lab/simulator/sim/difftest/difftest.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-main.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/main.cpp
+main.o: /home/fcmwf/CECS-lab/simulator/sim/main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-paddr.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/memory/paddr.cpp
+paddr.o: /home/fcmwf/CECS-lab/simulator/sim/memory/paddr.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-expr.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb/expr.cpp
+expr.o: /home/fcmwf/CECS-lab/simulator/sim/sdb/expr.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-sdb.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb/sdb.cpp
+sdb.o: /home/fcmwf/CECS-lab/simulator/sim/sdb/sdb.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-sim.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sim.cpp
+sim.o: /home/fcmwf/CECS-lab/simulator/sim/sim.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-disasm.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/utils/disasm.cpp
+disasm.o: /home/fcmwf/CECS-lab/simulator/sim/utils/disasm.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-get_time.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/utils/get_time.c
+get_time.o: /home/fcmwf/CECS-lab/simulator/sim/utils/get_time.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)

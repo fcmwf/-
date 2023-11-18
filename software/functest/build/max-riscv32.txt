@@ -1,5 +1,5 @@
 
-/home/xhyvm2/gitwork/labs/COMPSYS/software/functest/build/max-riscv32.elf:     file format elf32-littleriscv
+/home/fcmwf/CECS-lab/software/functest/build/max-riscv32.elf:     file format elf32-littleriscv
 
 
 Disassembly of section .text:

@@ -1,6 +1,6 @@
-mmio.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/device/io/mmio.c \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/device/map.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/common.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/generated/autoconf.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/macro.h \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/debug.h
+mmio.o: /home/fcmwf/CECS-lab/simulator/sim/device/io/mmio.c \
+ /home/fcmwf/CECS-lab/simulator/sim/include/device/map.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/common.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/generated/autoconf.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/macro.h \
+ /home/fcmwf/CECS-lab/simulator/sim/include/debug.h

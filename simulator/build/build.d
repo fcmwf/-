@@ -1,2 +1,2 @@
-build.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/build.cpp \
- /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/debug.h
+build.o: /home/fcmwf/CECS-lab/simulator/sim/build.cpp \
+ /home/fcmwf/CECS-lab/simulator/sim/include/debug.h

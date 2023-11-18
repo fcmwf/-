@@ -5,27 +5,28 @@
 
 extern uint8_t pmem[];
 
-// load a binary file into your cpu
-uint64_t load_img(char *img_file){
+uint64_t load_img(char* img_file) {
+    FILE* file = fopen(img_file, "rb"); // Open the file in binary mode
 
-// Lab2 TODO: load the 'img_file' to the start of pmem, and return its size
-    FILE *img = fopen(img_file, "rb");
-    if (img == NULL) {
+    if (file == NULL) {
         perror("Error opening file");
-        return 1;
+        return 0; // Return 0 to indicate failure
     }
 
-    int ptr=0;
-    while(!feof(img)){
-        size_t bytes_read = fread(&pmem[ptr], sizeof(uint8_t), 1024, img);
-        if (bytes_read == 0) {
-            perror("Error reading file");
-            fclose(img);
-            return 1;
-        }
-        ptr+=bytes_read;
+    fseek(file, 0, SEEK_END); // Move file pointer to the end of the file
+    uint64_t file_size = ftell(file); // Get the file size
+    fseek(file, 0, SEEK_SET); // Reset file pointer to the beginning
+
+    // Read the file contents into pmem
+    size_t bytes_read = fread(pmem, 1, file_size, file);
+
+    if (bytes_read != file_size) {
+        fprintf(stderr, "Error reading file\n");
+        fclose(file);
+        return 0; // Return 0 to indicate failure
     }
 
-    fclose(img);
-    return 0;
+    fclose(file); // Close the file
+
+    return file_size; // Return the size of the loaded file
 }

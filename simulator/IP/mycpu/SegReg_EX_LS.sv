@@ -15,6 +15,8 @@ module SegReg_EX_LS#(
     input  logic [ 0:0] csr_we_ex,
     input  logic [11:0] csr_waddr_ex,
     input  logic [31:0] csr_wdata_ex,
+    input  logic [ 0:0] exp_en_ex,
+    input  logic [ 0:0] mret_en_ex,
     input  logic [ 0:0] commit_ex,
 
     output logic [31:0] pc_ls,
@@ -26,6 +28,8 @@ module SegReg_EX_LS#(
     output logic [ 0:0] csr_we_ls,
     output logic [11:0] csr_waddr_ls,
     output logic [31:0] csr_wdata_ls,
+    output logic [ 0:0] exp_en_ls,
+    output logic [ 0:0] mret_en_ls,
     output logic [ 0:0] commit_ls
 );
     always_ff @(posedge clk) begin
@@ -39,6 +43,8 @@ module SegReg_EX_LS#(
             csr_we_ls       <=  1'h0;
             csr_waddr_ls    <=  12'h0;
             csr_wdata_ls    <=  32'h0;
+            exp_en_ls       <=  1'h0;
+            mret_en_ls      <=  1'h0;
             commit_ls       <=  1'h0;
         end 
         else if(!stall) begin
@@ -51,6 +57,8 @@ module SegReg_EX_LS#(
             csr_we_ls       <= csr_we_ex;
             csr_waddr_ls    <= csr_waddr_ex;
             csr_wdata_ls    <= csr_wdata_ex;
+            exp_en_ls       <= exp_en_ex;
+            mret_en_ls      <= mret_en_ex;
             commit_ls       <= commit_ex;
         end
     end

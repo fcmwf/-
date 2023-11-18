@@ -28,6 +28,12 @@ module Hazard(
     // Lab4 TODO: you may need to add some signals to cope with CSR, ecall and mret
     input  logic [ 0:0] csr_we_ex,
     input  logic [31:0] pc_ex,
+    input  logic [ 0:0] exp_en_ex,
+    input  logic [ 0:0] exp_en_wb,
+    input  logic [31:0] mtvec,
+    input  logic [ 0:0] mret_en_ex,
+    input  logic [ 0:0] mret_en_wb,
+    input  logic [31:0] mepc,
 
     output logic [ 0:0] pc_set,
     output logic [ 0:0] IF1_IF2_flush,
@@ -86,14 +92,18 @@ module Hazard(
     // Lab4 TODO: generate CSR related flush signal
     wire flush_by_csr = csr_we_ex;
     // Lab4 TODO: generate ecall and mret flush signal
+    wire flush_by_exp_ex = exp_en_ex;
+    wire flush_by_exp_wb = exp_en_wb;
+    wire flush_by_mret_ex = mret_en_ex;
+    wire flush_by_mret_wb = mret_en_wb;
 
     // Lab3 TODO: generate pc_set, IF1_IF2_flush, IF2_ID_flush, ID_EX_flush, EX_LS_flush, LS_WB_flush
-    assign pc_set           = flush_by_jump|flush_by_csr;    //next_pc = pc_set ? pc_target : pc + 4;
-    assign IF1_IF2_flush    = flush_by_jump|flush_by_csr;
-    assign IF2_ID_flush     = flush_by_jump|flush_by_csr;
-    assign ID_EX_flush      = flush_by_jump|flush_by_csr|stall_by_load_use;
-    assign EX_LS_flush      = 0;
-    assign LS_WB_flush      = 0;
+    assign pc_set           = flush_by_jump|flush_by_csr|flush_by_exp_ex|flush_by_exp_wb|flush_by_mret_ex|flush_by_mret_wb;    //next_pc = pc_set ? pc_target : pc + 4;
+    assign IF1_IF2_flush    = flush_by_jump|flush_by_csr|flush_by_exp_ex|flush_by_exp_wb|flush_by_mret_ex|flush_by_mret_wb;
+    assign IF2_ID_flush     = flush_by_jump|flush_by_csr|flush_by_exp_ex|flush_by_exp_wb|flush_by_mret_ex|flush_by_mret_wb;
+    assign ID_EX_flush      = flush_by_jump|flush_by_csr|flush_by_exp_ex|flush_by_exp_wb|flush_by_mret_ex|flush_by_mret_wb|stall_by_load_use;
+    assign EX_LS_flush      = flush_by_exp_wb|flush_by_mret_wb;
+    assign LS_WB_flush      = flush_by_exp_wb|flush_by_mret_wb;
 
     // Lab3 TODO: generate pc_stall, IF1_IF2_stall, IF2_ID_stall, ID_EX_stall, EX_LS_stall, LS_WB_stall
     assign pc_stall         = stall_by_load_use;
@@ -109,8 +119,20 @@ module Hazard(
             pc_set_target = jump_target;
         end
         // Lab4 TODO: generate CSR, ecall and mret related pc_set_target
+        else if(exp_en_wb) begin    //没用？
+            pc_set_target = mtvec;
+        end
+        else if(mret_en_wb) begin
+            pc_set_target = mepc+4; //能+4吗
+        end
         else if (flush_by_csr) begin
             pc_set_target = pc_ex+4;
+        end
+        else if(exp_en_ex) begin
+            pc_set_target = 32'h8000_0000;  //随意
+        end
+        else if(mret_en_ex) begin
+            pc_set_target = 32'h8000_0000;  //随意
         end
     end
 
