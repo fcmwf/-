@@ -1,5 +1,5 @@
 
-/home/fcmwf/CECS-Lab/software/functest/build/movsx-riscv32.elf:     file format elf32-littleriscv
+/home/xhyvm2/gitwork/labs/COMPSYS/software/functest/build/movsx-riscv32.elf:     file format elf32-littleriscv
 
 
 Disassembly of section .text:

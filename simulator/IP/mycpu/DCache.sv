@@ -12,6 +12,7 @@ module DCache#(
     input  logic [      0:0] flush,
     input  logic [      0:0] stall
 );
+    // read physical memory with read enable re, read addr raddr, read size (1 << mask), then return the value in rword
     import "DPI-C" function void pmem_read(input bit re, input int addr, input int mask, output int rword);
     import "DPI-C" function void pmem_write(input bit we, input int addr, input int mask, input int wword); 
     logic [31:0] rdata_temp;

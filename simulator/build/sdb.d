@@ -1,4 +1,4 @@
-sdb.o: /home/fcmwf/CECS-Lab/simulator/sim/sdb/sdb.cpp \
- /home/fcmwf/CECS-Lab/simulator/sim/sdb/../include/common.h \
- /home/fcmwf/CECS-Lab/simulator/sim/include/generated/autoconf.h \
- /home/fcmwf/CECS-Lab/simulator/sim/sdb/../include/macro.h
+sdb.o: /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb/sdb.cpp \
+ /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb/../include/common.h \
+ /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/include/generated/autoconf.h \
+ /home/xhyvm2/gitwork/labs/COMPSYS/simulator/sim/sdb/../include/macro.h

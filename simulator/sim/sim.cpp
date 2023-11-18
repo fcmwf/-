@@ -15,17 +15,18 @@ extern VerilatedVcdC *m_trace;
 
 extern uint8_t pmem[];
 
-void print_itrace();
+void print_itrace(int n);
 void difftest_step();
+void add_itrace(word_t pc, word_t code);
 
 // Lab2 HINT: instruction log struct for instruction trace
 struct inst_log{
   word_t pc;
   word_t inst;
 };
-
-struct inst_log trace_queue[16];
-int trace_ptr = 0;
+inst_log itrace_queue[16]={};
+int itrace_ptr=0;
+int itrace_cnt=0;
 
 
 uint32_t *cpu_mstatus = NULL, *cpu_mtvec = NULL, *cpu_mepc = NULL, *cpu_mcause = NULL;
@@ -34,7 +35,10 @@ void set_state() {
   sim_cpu.pc = dut->pc_cur;
   memcpy(&sim_cpu.gpr[0], cpu_gpr, 4 * 32);
   // Lab4 TODO: set the state of csr to sim_cpu
-  
+  sim_cpu.csr.mepc=cpu_mepc[0];
+  sim_cpu.csr.mcause=cpu_mcause[0];
+  sim_cpu.csr.mstatus=cpu_mstatus[0];
+  sim_cpu.csr.mtvec=cpu_mtvec[0];
 }
 
 // num of executed instruction
@@ -43,11 +47,14 @@ uint64_t g_nr_guest_inst = 0;
 // simulate a single cycle
 void single_cycle() {
 // Lab2 TODO: implement the single cycle function of your cpu
+  if (dut->commit_wb) add_itrace(dut->pc_cur,dut->inst);
+
   dut->clk=1;
   dut->eval();
   dut->clk=0;
   dut->eval();
-  //m_trace->dump(sim_time++); 
+
+  m_trace->dump(sim_time++); 
   if(dut->commit_wb == 1) set_state();
 }
 
@@ -80,7 +87,7 @@ SimState sim_state = { .state = SIM_STOP };
 void cpu_exec(unsigned int n){
   switch (sim_state.state) {
     case SIM_END: case SIM_ABORT: case SIM_QUIT:
-      print_itrace();
+      print_itrace(-1);
       printf("Program execution has ended. To restart the program, exit NPC and run again.\n");
       return;
     default: sim_state.state = SIM_RUNNING;
@@ -88,6 +95,7 @@ void cpu_exec(unsigned int n){
   // Lab2 TODO: implement instruction trace for your cpu
 
   bool npc_cpu_uncache_pre = 0;
+  unsigned int itrace_n=n;
   while (n--) {
     // execute single instruction
     if(test_break()) {
@@ -104,23 +112,20 @@ void cpu_exec(unsigned int n){
       }
       // Lab3 TODO: use difftest_step function here to execute difftest
       difftest_step();
+
       g_nr_guest_inst++;
       npc_cpu_uncache_pre = dut->uncache_read_wb;
     }
     // your cpu step a cycle
-    if (dut->commit_wb) {    //记录
-      trace_queue[trace_ptr].pc=dut->pc_cur;
-      trace_queue[trace_ptr].inst=dut->inst;
-      trace_ptr++;
-      trace_ptr = trace_ptr%16;
-    }
     single_cycle();
 
 #ifdef DEVICE
     device_update();
 #endif
+
     if(sim_state.state != SIM_RUNNING) break;
   }
+  if(itrace_n!=-1) print_itrace(itrace_n);
 
   switch (sim_state.state) {
     case SIM_RUNNING: sim_state.state = SIM_STOP; break;
@@ -132,8 +137,8 @@ void cpu_exec(unsigned int n){
           sim_state.halt_pc);
       // fall through
     case SIM_QUIT: 
-      print_itrace();
-      statistic();
+        print_itrace(-1);
+        statistic();
   }
 }
 
@@ -173,18 +178,47 @@ extern "C" void set_csr_ptr(const svOpenArrayHandle mstatus, const svOpenArrayHa
 }
 
 void isa_reg_display() {
-  for (int i = 0; i < 32; i++) {
-    printf("gpr[%d](%s) = 0x%x\n", i, regs[i], cpu_gpr[i]);
+  for (int i = 0; i < 8; i++) {
+    printf("gpr[%d](%s) = 0x%x\tgpr[%d](%s) = 0x%x\tgpr[%d](%s) = 0x%x\tgpr[%d](%s) = 0x%x\n", 
+    i, regs[i], cpu_gpr[i],
+    i+8, regs[i+8], cpu_gpr[i+8],
+    i+16, regs[i+16], cpu_gpr[i+16],
+    i+24, regs[i+24], cpu_gpr[i+24]
+    );
   }
 }
 
-void print_itrace() {
+void print_itrace(int n) {
   // Lab2 HINT: you can implement this function to help you print the instruction trace
-  for(int i=0;i<16;i++){
-    char buffer[1024];
-    disassemble(buffer,1024,(uint64_t)trace_queue[i].pc,(uint8_t *)&trace_queue[i].inst,4);
-    std::cout 
-        <<"pc:  "<<std::hex<<trace_queue[i].pc<<"\n"
-        <<"inst:  "<<buffer<<"\n";
-  }
+    if(itrace_cnt==0||n==0){
+        printf("error: no instruction executed\n");
+        return;
+    }
+    if(n>itrace_cnt||n<0) n=itrace_cnt;
+    int ptr=itrace_ptr;
+    for(int i=0;i<n;i++){
+        char buffer[1024];
+        disassemble(buffer,1024,(uint64_t)itrace_queue[ptr].pc,(uint8_t *)&itrace_queue[ptr].inst,4);
+        uint64_t pc=itrace_queue[ptr].pc;
+        uint64_t inst=itrace_queue[ptr].inst;
+        std::cout
+            <<"0x"<<std::hex<<std::setw(8)<< std::setfill('0')
+            <<pc<<": \t"
+            <<"0x"<<std::hex<<std::setw(8)<< std::setfill('0')
+            <<inst<<"\t"
+            <<buffer<<std::endl;
+        if(ptr==0) ptr=15;
+        else ptr--;
+    }
+}
+
+void add_itrace(word_t pc, word_t code){
+    if(itrace_cnt==0) itrace_ptr=0;
+    else if(itrace_ptr==15) itrace_ptr=0;
+    else itrace_ptr++;
+
+    if(itrace_cnt<16) itrace_cnt++;
+
+    itrace_queue[itrace_ptr].pc=pc;
+    itrace_queue[itrace_ptr].inst=code;
 }

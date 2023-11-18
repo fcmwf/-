@@ -1,4 +1,4 @@
-/home/fcmwf/CECS-Lab/software/picotest/build/riscv32/src/divu.o: \
- /home/fcmwf/CECS-Lab/software/picotest/src/divu.S \
- /home/fcmwf/CECS-Lab/software/picotest/include/riscv_test.h \
- /home/fcmwf/CECS-Lab/software/picotest/include/test_macros.h
+/home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/build/riscv32/src/divu.o: \
+ /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/src/divu.S \
+ /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/include/riscv_test.h \
+ /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/include/test_macros.h

@@ -17,6 +17,9 @@ module CSR(
             mstatus <= 32'h0;
         end
         // Lab4 TODO: implement mstatus
+        else if(waddr==`CSR_MSTATUS && we) begin
+            mstatus <= wdata;
+        end
     end
 
     reg [31:0] mtvec;
@@ -25,6 +28,9 @@ module CSR(
             mtvec <= 32'h0;
         end
         // Lab4 TODO: implement mtvec
+        else if(waddr==`CSR_MTVEC && we) begin
+            mtvec <= wdata;
+        end
     end
 
     reg [31:0] mcause;
@@ -33,6 +39,9 @@ module CSR(
             mcause <= 32'h0;
         end
         // Lab4 TODO: implement mcause
+        else if(waddr==`CSR_MCAUSE && we) begin
+            mcause <= wdata;
+        end
     end
 
     reg [31:0] mepc;
@@ -41,6 +50,9 @@ module CSR(
             mepc <= 32'h0;
         end
         // Lab4 TODO: implement mepc
+        else if(waddr==`CSR_MEPC && we) begin
+            mepc <= wdata;
+        end
     end
 
     // read

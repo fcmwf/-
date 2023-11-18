@@ -40,9 +40,16 @@ class alignas(VL_CACHE_LINE_BYTES) VCPU___024root final : public VerilatedModule
         CData/*0:0*/ CPU__DOT__rf_we_ex;
         CData/*0:0*/ CPU__DOT__rf_we_ls;
         CData/*0:0*/ CPU__DOT__rf_we_wb;
+        CData/*2:0*/ CPU__DOT__csr_op_id;
+        CData/*2:0*/ CPU__DOT__csr_op_ex;
+        CData/*0:0*/ CPU__DOT__csr_we_id;
+        CData/*0:0*/ CPU__DOT__csr_we_ex;
+        CData/*0:0*/ CPU__DOT__csr_we_ls;
+        CData/*0:0*/ CPU__DOT__csr_we_wb;
         CData/*0:0*/ CPU__DOT__forward1_en;
         CData/*0:0*/ CPU__DOT__forward2_en;
         CData/*0:0*/ CPU__DOT__jump;
+        CData/*0:0*/ CPU__DOT__pc_set;
         CData/*0:0*/ CPU__DOT__ID_EX_flush;
         CData/*0:0*/ CPU__DOT__commit_if2;
         CData/*0:0*/ CPU__DOT__commit_id;
@@ -54,6 +61,9 @@ class alignas(VL_CACHE_LINE_BYTES) VCPU___024root final : public VerilatedModule
         CData/*0:0*/ CPU__DOT__Hazard_inst__DOT__stall_by_load_use;
         CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
         CData/*0:0*/ __VactContinue;
+        SData/*11:0*/ CPU__DOT__csr_waddr_ex;
+        SData/*11:0*/ CPU__DOT__csr_waddr_ls;
+        SData/*11:0*/ CPU__DOT__csr_waddr_wb;
         VL_OUT(pc_cur,31,0);
         VL_OUT(inst,31,0);
         IData/*31:0*/ CPU__DOT__pc_if2;
@@ -70,6 +80,8 @@ class alignas(VL_CACHE_LINE_BYTES) VCPU___024root final : public VerilatedModule
         IData/*31:0*/ CPU__DOT__next_pc;
         IData/*31:0*/ CPU__DOT__imm_id;
         IData/*31:0*/ CPU__DOT__imm_ex;
+    };
+    struct {
         IData/*31:0*/ CPU__DOT__rf_wdata_wb;
         IData/*31:0*/ CPU__DOT__rf_rdata1_ex;
         IData/*31:0*/ CPU__DOT__rf_rdata2_ex;
@@ -80,17 +92,22 @@ class alignas(VL_CACHE_LINE_BYTES) VCPU___024root final : public VerilatedModule
         IData/*31:0*/ CPU__DOT__alu_rs1;
         IData/*31:0*/ CPU__DOT__alu_rs2;
         IData/*31:0*/ CPU__DOT__alu_result_ex;
-    };
-    struct {
         IData/*31:0*/ CPU__DOT__alu_result_ls;
         IData/*31:0*/ CPU__DOT__alu_result_wb;
         IData/*31:0*/ CPU__DOT__jump_target;
         IData/*31:0*/ CPU__DOT__mem_wdata_ex;
         IData/*31:0*/ CPU__DOT__mem_rdata_wb;
         IData/*31:0*/ CPU__DOT__dcache_rdata_ls;
+        IData/*31:0*/ CPU__DOT__csr_wdata_ls;
+        IData/*31:0*/ CPU__DOT__csr_wdata_wb;
+        IData/*31:0*/ CPU__DOT__csr_rdata_ex;
         IData/*31:0*/ CPU__DOT__PC_inst__DOT__pc_reg;
         IData/*31:0*/ CPU__DOT__ICache_inst__DOT__rdata_temp;
         IData/*31:0*/ CPU__DOT__Regfile_inst__DOT__unnamedblk1__DOT__i;
+        IData/*31:0*/ CPU__DOT__CSR_inst__DOT__mstatus;
+        IData/*31:0*/ CPU__DOT__CSR_inst__DOT__mtvec;
+        IData/*31:0*/ CPU__DOT__CSR_inst__DOT__mcause;
+        IData/*31:0*/ CPU__DOT__CSR_inst__DOT__mepc;
         IData/*31:0*/ CPU__DOT__ALU_inst__DOT__result_div;
         IData/*31:0*/ CPU__DOT__ALU_inst__DOT__result_rem;
         IData/*31:0*/ CPU__DOT__ALU_inst__DOT__sr1_abs;
@@ -99,7 +116,7 @@ class alignas(VL_CACHE_LINE_BYTES) VCPU___024root final : public VerilatedModule
         IData/*31:0*/ CPU__DOT__ALU_inst__DOT____VdfgTmp_h065b4e26__0;
         IData/*31:0*/ CPU__DOT__DCache_inst__DOT__rdata_temp;
         IData/*31:0*/ __Vtask_CPU__DOT__ICache_inst__DOT__pmem_read__0__rword;
-        IData/*31:0*/ __Vtask_CPU__DOT__DCache_inst__DOT__pmem_read__2__rword;
+        IData/*31:0*/ __Vtask_CPU__DOT__DCache_inst__DOT__pmem_read__3__rword;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         QData/*63:0*/ CPU__DOT__ALU_inst__DOT__result_64;

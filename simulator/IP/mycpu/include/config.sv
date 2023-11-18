@@ -54,7 +54,7 @@
 // Writeback
 `define FROM_ALU         1'h0
 `define FROM_MEM         1'h1
-// `define FROM_CSR         2'h1
+`define FROM_CSR         1'h0
 
 // CSR
 `define CSR_MSTATUS     12'h300

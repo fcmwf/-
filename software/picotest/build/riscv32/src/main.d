@@ -1,2 +1,2 @@
-/home/fcmwf/CECS-Lab/software/picotest/build/riscv32/src/main.o: \
- /home/fcmwf/CECS-Lab/software/picotest/src/main.S
+/home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/build/riscv32/src/main.o: \
+ /home/xhyvm2/gitwork/labs/COMPSYS/software/picotest/src/main.S

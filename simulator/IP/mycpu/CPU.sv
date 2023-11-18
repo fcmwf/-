@@ -35,6 +35,11 @@ module CPU#(
     logic [ 1:0]    alu_rs2_sel_id, alu_rs2_sel_ex;
     logic [ 0:0]    wb_rf_sel_id, wb_rf_sel_ex, wb_rf_sel_ls, wb_rf_sel_wb;
     logic [ 0:0]    rf_we_id, rf_we_ex, rf_we_ls, rf_we_wb;
+    //csr
+    logic [ 2:0]    csr_op_id,csr_op_ex;
+    logic [11:0]    csr_waddr_id, csr_waddr_ex, csr_waddr_ls, csr_waddr_wb;
+    logic [ 0:0]    csr_we_id, csr_we_ex, csr_we_ls, csr_we_wb;
+    logic [31:0]    csr_wdata_ex, csr_wdata_ls, csr_wdata_wb, csr_rdata_id, csr_rdata_ex;
 
     logic [ 0:0]    forward1_en, forward2_en;
     logic [ 0:0]    jump;
@@ -112,9 +117,11 @@ module CPU#(
     Decode  Decode_inst (
         .inst           (inst_id),
         .alu_op         (alu_op_id),
+        .csr_op         (csr_op_id),
         .mem_access     (mem_access_id),
         .imm            (imm_id),
         .rf_we          (rf_we_id),
+        .csr_we         (csr_we_id),
         .alu_rs1_sel    (alu_rs1_sel_id),
         .alu_rs2_sel    (alu_rs2_sel_id),
         .wb_rf_sel      (wb_rf_sel_id),
@@ -130,6 +137,18 @@ module CPU#(
         .rdata1         (rf_rdata1_id),
         .rdata2         (rf_rdata2_id)
     );
+    assign csr_waddr_id = inst_id[31:20];
+    
+    CSR CSR_inst (
+        .clk         (clk),
+        .rstn        (rstn),
+        .raddr       (inst_id[31:20]),
+        .waddr       (csr_waddr_wb),
+        .we          (csr_we_wb),
+        .wdata       (csr_wdata_wb),
+        .rdata       (csr_rdata_id)
+    );
+
 
     /* ID-EX segreg */
     SegReg_ID_EX # (
@@ -146,11 +165,15 @@ module CPU#(
         .imm_id         (imm_id),
         .mem_access_id  (mem_access_id),
         .op_id          (alu_op_id),
+        .csr_op_id      (csr_op_id),
         .br_type_id     (br_type_id),
         .wb_rf_sel_id   (wb_rf_sel_id),
         .alu_rs1_sel_id (alu_rs1_sel_id),
         .alu_rs2_sel_id (alu_rs2_sel_id),
+        .csr_rdata_id   (csr_rdata_id),
         .rf_we_id       (rf_we_id),
+        .csr_we_id      (csr_we_id),
+        .csr_waddr_id   (csr_waddr_id),
         .pc_ex          (pc_ex),
         .inst_ex        (inst_ex),
         .rdata1_ex      (rf_rdata1_ex),
@@ -158,11 +181,15 @@ module CPU#(
         .imm_ex         (imm_ex),
         .mem_access_ex  (mem_access_ex),
         .op_ex          (alu_op_ex),
+        .csr_op_ex      (csr_op_ex),
         .br_type_ex     (br_type_ex),
         .wb_rf_sel_ex   (wb_rf_sel_ex),
         .alu_rs1_sel_ex (alu_rs1_sel_ex),
         .alu_rs2_sel_ex (alu_rs2_sel_ex),
+        .csr_rdata_ex   (csr_rdata_ex),
         .rf_we_ex       (rf_we_ex),
+        .csr_we_ex      (csr_we_ex),
+        .csr_waddr_ex   (csr_waddr_ex),
         .commit_id      (commit_id),
         .commit_ex      (commit_ex)
 
@@ -201,7 +228,7 @@ module CPU#(
         .din1           (alu_rf_data2),
         .din2           (imm_ex),
         .din3           (32'h4),
-        .din4           (32'h0),
+        .din4           (csr_rdata_ex),
         .sel            (alu_rs2_sel_ex),
         .dout           (alu_rs2)
     );
@@ -223,6 +250,14 @@ module CPU#(
         .jump_target    (jump_target)
     );
 
+    Priv Priv_inst (
+        .csr_op         (csr_op_ex),
+        .csr_rdata      (alu_rs2),
+        .rf_rdata1      (alu_rf_data1),
+        .zimm           (imm_ex),     
+        .csr_wdata      (csr_wdata_ex)
+    );
+    
     /* EX-LS segreg */
     SegReg_EX_LS # (
         .PC_RESET_VAL(PC_RESET_VALUE)
@@ -237,12 +272,18 @@ module CPU#(
         .mem_access_ex  (mem_access_ex),
         .wb_rf_sel_ex   (wb_rf_sel_ex),
         .rf_we_ex       (rf_we_ex),
+        .csr_we_ex      (csr_we_ex),
+        .csr_waddr_ex   (csr_waddr_ex),
+        .csr_wdata_ex   (csr_wdata_ex),
         .pc_ls          (pc_ls),
         .inst_ls        (inst_ls),
         .alu_result_ls  (alu_result_ls),
         .mem_access_ls  (mem_access_ls),
         .wb_rf_sel_ls   (wb_rf_sel_ls),
         .rf_we_ls       (rf_we_ls),
+        .csr_we_ls      (csr_we_ls),
+        .csr_waddr_ls   (csr_waddr_ls),
+        .csr_wdata_ls   (csr_wdata_ls),
         .commit_ex      (commit_ex),
         .commit_ls      (commit_ls)
     );
@@ -282,12 +323,18 @@ module CPU#(
         .mem_rdata_ls       (mem_rdata_ls),
         .wb_rf_sel_ls       (wb_rf_sel_ls),
         .rf_we_ls           (rf_we_ls),
+        .csr_we_ls          (csr_we_ls),
+        .csr_waddr_ls       (csr_waddr_ls),
+        .csr_wdata_ls       (csr_wdata_ls),
         .pc_wb              (pc_wb),
         .inst_wb            (inst_wb),
         .alu_result_wb      (alu_result_wb),
         .mem_rdata_wb       (mem_rdata_wb),
         .wb_rf_sel_wb       (wb_rf_sel_wb),
         .rf_we_wb           (rf_we_wb),
+        .csr_we_wb          (csr_we_wb),
+        .csr_waddr_wb       (csr_waddr_wb),
+        .csr_wdata_wb       (csr_wdata_wb),
         .commit_ls          (commit_ls),
         .commit_wb          (commit_wb),
         .read_ls            (mem_access_ls[`LOAD_BIT]),
@@ -319,6 +366,9 @@ module CPU#(
         .forward2_en        (forward2_en),
         .forward1_data      (forward1_data),
         .forward2_data      (forward2_data),
+
+        .csr_we_ex          (csr_we_ex),
+        .pc_ex              (pc_ex),
 
         .mem_access_ex      (mem_access_ex),
         .rf_rd_ex           (inst_ex[11:7]),

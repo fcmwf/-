@@ -103,10 +103,6 @@ VL_ATTR_COLD void VCPU::final() {
 const char* VCPU::hierName() const { return vlSymsp->name(); }
 const char* VCPU::modelName() const { return "VCPU"; }
 unsigned VCPU::threads() const { return 1; }
-void VCPU::prepareClone() const { contextp()->prepareClone(); }
-void VCPU::atClone() const {
-    contextp()->threadPoolpOnClone();
-}
 std::unique_ptr<VerilatedTraceConfig> VCPU::traceConfig() const {
     return std::unique_ptr<VerilatedTraceConfig>{new VerilatedTraceConfig{false, false, false}};
 };
