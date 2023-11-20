@@ -54,38 +54,20 @@
 // Writeback
 `define FROM_ALU         1'h0
 `define FROM_MEM         1'h1
-`define FROM_CSR         1'h0
+// `define FROM_CSR         2'h1
 
 // CSR
 `define CSR_MSTATUS     12'h300
-`define CSR_MIE         12'h304
 `define CSR_MTVEC       12'h305
 `define CSR_MEPC        12'h341
 `define CSR_MCAUSE      12'h342
-`define CSR_MIP         12'h344
 
-// CSR Bits
-`define UIE             0
-`define SIE             1
-`define MIE             3
-`define UPIE            4
-`define SPIE            5
-`define MPIE            7
-`define MTIP            7
-`define MTIE            7
 
 // Privilege Vector
+`define CSR_RW          0
+`define ECALL           1
+`define MRET            2
+`define FENCEI          3
+`define FENCE           4
 
-`define ECALL           0
-`define MRET            1
-`define FENCEI          2
-`define CSR_RW          3
 
-
-`define EXC_ECALL  8
-`define MODE_U  0
-`define MODE_S  1
-`define MODE_H  2
-`define MODE_M  3
-`define INST_ECALL 32'h0000_0073
-`define INST_MRET  32'h3020_0073

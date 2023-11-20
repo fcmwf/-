@@ -9,4 +9,4 @@ ln -s ../simulator/sim/sim.cpp sim.cpp
 
 cd ../simulator/IP
 
-git clone https://github.com/USTC-System-Courses/CECS-pipeline-AXI.git pipeline-AXI
+# git clone https://mirror.ghproxy.com/https://github.com/USTC-System-Courses/CECS-pipeline-AXI.git pipeline-AXI
