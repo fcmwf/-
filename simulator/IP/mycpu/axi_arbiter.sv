@@ -166,8 +166,7 @@ module axi_arbiter(
         end
         D_AR: begin
             // TODO
-            arvalid = d_rvalid;
-            d_rready = arready;
+            arvalid = 1;
             arlen = d_rlen;
             arsize = d_rsize;
             araddr = d_raddr;
@@ -216,7 +215,7 @@ module axi_arbiter(
         end
         D_W: begin
             // TODO
-            if(awready&&d_wlast)begin
+            if(wready&&d_wlast)begin
                 w_nxt = D_B;
             end
             else begin

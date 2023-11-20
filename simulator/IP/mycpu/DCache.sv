@@ -334,7 +334,7 @@ module DCache #(
 
             // Lab6 TODO：generate wbuf for uncache here
             if(uncached) begin
-                wbuf <= {wbuf[BIT_NUM-1:],wdata_pipe};
+                wbuf <= {wbuf[BIT_NUM-1:32],wdata_pipe};
             end
             else begin
                 wbuf <= lru_sel ? mem_rdata[1] : mem_rdata[0];
@@ -590,7 +590,13 @@ module DCache #(
         INIT: begin
             if(wfsm_en) begin
                 // Lab6 TODO: generate wfsm_next_state for uncache here
-                wfsm_next_state = uncached? FINISH :(dirty_info ? WRITE : FINISH);
+                if(uncached&&rvalid_pipe) begin
+                    wfsm_next_state = FINISH;
+                end
+                else if (uncached) begin
+                    wfsm_next_state = WRITE;
+                end
+                else wfsm_next_state = dirty_info ? WRITE : FINISH;
             end
             else begin
                 wfsm_next_state = INIT;

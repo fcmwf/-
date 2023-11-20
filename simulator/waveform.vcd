@@ -349,7 +349,7 @@ $timescale 1ps $end
     $var wire 24 i! tag_rdata[0] [23:0] $end
     $var wire 24 j! tag_rdata[1] [23:0] $end
     $var wire  2 g! tagv_we [1:0] $end
-    $var wire  1 6" uncache $end
+    $var wire  1 6" uncached [0:0] $end
     $var wire 16 k! valid_bit_mem[0] [15:0] $end
     $var wire 16 l! valid_bit_mem[1] [15:0] $end
     $var wire  1 m! valid_bit_rdata[0] [0:0] $end

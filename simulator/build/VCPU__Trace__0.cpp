@@ -89,11 +89,11 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
                                           ? ((0xaU 
                                               == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
                                                   >> 0x1cU))
-                                              ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe)
-                                                  ? 3U
+                                              ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__rvalid_pipe)
+                                                  ? 1U
                                                   : 
-                                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__rvalid_pipe)
-                                                   ? 1U
+                                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe)
+                                                   ? 3U
                                                    : 0U))
                                               : ((0U 
                                                   != (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__hit))
@@ -101,43 +101,7 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
                                                   : 1U))
                                           : ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__fence_valid_pipe)
                                               ? 1U : 0U))))),2);
-        bufp->chgCData(oldp+17,(((0U == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state))
-                                  ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_en)
-                                      ? (((0xaU == 
-                                           (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                            >> 0x1cU)) 
-                                          & (0U == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wstrb_pipe)))
-                                          ? 2U : ((0xaU 
-                                                   == 
-                                                   (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                                    >> 0x1cU))
-                                                   ? 1U
-                                                   : 
-                                                  ((1U 
-                                                    & (vlSelf->CPU__DOT__DCache_inst__DOT__dirty_table
-                                                       [
-                                                       (1U 
-                                                        & ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__fence_valid_pipe)
-                                                            ? 
-                                                           ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__addr_cnt) 
-                                                            >> 4U)
-                                                            : (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__lru_sel)))] 
-                                                       >> (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__w_index)))
-                                                    ? 1U
-                                                    : 2U)))
-                                      : 0U) : ((1U 
-                                                == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state))
-                                                ? ((IData)(vlSelf->CPU__DOT__d_bvalid)
-                                                    ? 2U
-                                                    : 1U)
-                                                : (
-                                                   (2U 
-                                                    == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state))
-                                                    ? 
-                                                   ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_reset)
-                                                     ? 0U
-                                                     : 2U)
-                                                    : 0U)))),2);
+        bufp->chgCData(oldp+17,(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_next_state),2);
         bufp->chgCData(oldp+18,(vlSelf->CPU__DOT__ICache_inst__DOT__next_state),2);
         bufp->chgCData(oldp+19,(vlSelf->CPU__DOT__axi_arbiter_inst__DOT__r_nxt),3);
         bufp->chgCData(oldp+20,(vlSelf->CPU__DOT__axi_arbiter_inst__DOT__w_nxt),2);

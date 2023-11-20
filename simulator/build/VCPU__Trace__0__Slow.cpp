@@ -384,7 +384,7 @@ VL_ATTR_COLD void VCPU___024root__trace_init_sub__TOP__0(VCPU___024root* vlSelf,
     tracep->declBit(c+16,"write_counter_en", false,-1);
     tracep->declBus(c+206,"addr_cnt", false,-1, 4,0);
     tracep->declBit(c+207,"addr_cnt_add", false,-1);
-    tracep->declBit(c+208,"uncache", false,-1);
+    tracep->declBus(c+208,"uncached", false,-1, 0,0);
     tracep->declBit(c+209,"read_from_cnt", false,-1);
     tracep->declArray(c+210,"rdata_mem", false,-1, 127,0);
     tracep->declArray(c+214,"rdata_ret", false,-1, 127,0);
@@ -970,11 +970,11 @@ VL_ATTR_COLD void VCPU___024root__trace_full_sub_0(VCPU___024root* vlSelf, Veril
                                                   (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
                                                    >> 0x1cU))
                                                   ? 
-                                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe)
-                                                   ? 3U
+                                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__rvalid_pipe)
+                                                   ? 1U
                                                    : 
-                                                  ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__rvalid_pipe)
-                                                    ? 1U
+                                                  ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe)
+                                                    ? 3U
                                                     : 0U))
                                                   : 
                                                  ((0U 
@@ -985,40 +985,7 @@ VL_ATTR_COLD void VCPU___024root__trace_full_sub_0(VCPU___024root* vlSelf, Veril
                                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__fence_valid_pipe)
                                                   ? 1U
                                                   : 0U))))),2);
-    bufp->fullCData(oldp+18,(((0U == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state))
-                               ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_en)
-                                   ? (((0xaU == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                                 >> 0x1cU)) 
-                                       & (0U == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wstrb_pipe)))
-                                       ? 2U : ((0xaU 
-                                                == 
-                                                (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                                 >> 0x1cU))
-                                                ? 1U
-                                                : (
-                                                   (1U 
-                                                    & (vlSelf->CPU__DOT__DCache_inst__DOT__dirty_table
-                                                       [
-                                                       (1U 
-                                                        & ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__fence_valid_pipe)
-                                                            ? 
-                                                           ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__addr_cnt) 
-                                                            >> 4U)
-                                                            : (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__lru_sel)))] 
-                                                       >> (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__w_index)))
-                                                    ? 1U
-                                                    : 2U)))
-                                   : 0U) : ((1U == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state))
-                                             ? ((IData)(vlSelf->CPU__DOT__d_bvalid)
-                                                 ? 2U
-                                                 : 1U)
-                                             : ((2U 
-                                                 == (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state))
-                                                 ? 
-                                                ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_reset)
-                                                  ? 0U
-                                                  : 2U)
-                                                 : 0U)))),2);
+    bufp->fullCData(oldp+18,(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_next_state),2);
     bufp->fullCData(oldp+19,(vlSelf->CPU__DOT__ICache_inst__DOT__next_state),2);
     bufp->fullCData(oldp+20,(vlSelf->CPU__DOT__axi_arbiter_inst__DOT__r_nxt),3);
     bufp->fullCData(oldp+21,(vlSelf->CPU__DOT__axi_arbiter_inst__DOT__w_nxt),2);
