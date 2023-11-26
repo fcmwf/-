@@ -1,4 +1,7 @@
-{
+{ 
+
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
     "files.associations": {
         "*.vue": "vue",
         "*.wpy": "vue",
@@ -90,6 +93,14 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "common.h": "c",
+        "elf.h": "c",
+        "fs.h": "c",
+        "files.h": "c",
+        "device.h": "c",
+        "proc.h": "c",
+        "debug.h": "c",
+        
     }
 }

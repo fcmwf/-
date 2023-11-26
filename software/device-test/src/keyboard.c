@@ -27,7 +27,7 @@ static void drain_keys() {
 }
 
 void keyboard_test() {
-  printf("Try to press any key (uart or keyboard)...\n");
+//   printf("Try to press any key (uart or keyboard)...\n");
   has_uart = io_read(DEV_UART_CONFIG).present;
   has_kbd  = io_read(DEV_INPUT_CONFIG).present;
   while (1) {

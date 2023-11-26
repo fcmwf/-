@@ -1,0 +1,35 @@
+/home/fcmwf/CECS-lab/software/os-app/libs/libbmp/build/riscv32/./src/BMP.o: \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libbmp/src/BMP.c \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/stdio.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/_ansi.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/newlib.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/config.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/ieeefp.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/features.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/_newlib_version.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/cdefs.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/_default_types.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/reent.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/_ansi.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_types.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/_types.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/lock.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/types.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_stdint.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/endian.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/_endian.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/select.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_sigset.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_timeval.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/timespec.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_timespec.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_pthreadtypes.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/sched.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/types.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/stdio.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/stdint.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/sys/_intsup.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/stdlib.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/machine/stdlib.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/alloca.h \
+ /home/fcmwf/CECS-lab/software/os-app/libs/libc/include/assert.h

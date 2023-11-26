@@ -57,13 +57,13 @@ void pmem_read(){
     dut->rvalid = 0;
     if(dut->arvalid){
       // Lab5 TODO: implement the read request
-      araddr = dut->araddr;
-      assert(araddr >= 0x80000000);
-      arlen = dut->arlen + 1;
-      arsize = 1 << dut->arsize;
-      rstate = 1;
-      dut->arready = 1;
-      rcount = 0;
+        araddr = dut->araddr;
+        assert(araddr >= 0x80000000);
+        arlen = dut->arlen;
+        arsize = 1 << dut->arsize;
+        rstate = 1;
+        dut->arready = 1;
+        rcount = 0;
     }
   }
   else if(rstate == 1) {
@@ -75,7 +75,7 @@ void pmem_read(){
       dut->rdata = rdata;
       dut->rvalid = 1;
       rcount++;
-      if(rcount == arlen)
+      if(rcount == arlen+1)
         dut->rlast = 1;
       rstate = dut->rlast ? 0 : 1;
     }

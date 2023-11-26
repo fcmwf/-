@@ -29,18 +29,18 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
     VlWide<4>/*127:0*/ __Vtemp_5;
     VlWide<4>/*127:0*/ __Vtemp_6;
     VlWide<4>/*127:0*/ __Vtemp_7;
+    VlWide<4>/*127:0*/ __Vtemp_9;
     VlWide<4>/*127:0*/ __Vtemp_10;
     VlWide<4>/*127:0*/ __Vtemp_11;
     VlWide<4>/*127:0*/ __Vtemp_12;
     VlWide<4>/*127:0*/ __Vtemp_13;
+    VlWide<4>/*127:0*/ __Vtemp_14;
     VlWide<4>/*127:0*/ __Vtemp_15;
     VlWide<4>/*127:0*/ __Vtemp_16;
     VlWide<4>/*127:0*/ __Vtemp_17;
     VlWide<4>/*127:0*/ __Vtemp_18;
     VlWide<4>/*127:0*/ __Vtemp_19;
     VlWide<4>/*127:0*/ __Vtemp_20;
-    VlWide<4>/*127:0*/ __Vtemp_21;
-    VlWide<4>/*127:0*/ __Vtemp_22;
     // Body
     if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[0U])) {
         bufp->chgIData(oldp+0,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__j),32);
@@ -77,24 +77,16 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
                                           ? 3U : (((IData)(vlSelf->CPU__DOT__d_rready) 
                                                    & (IData)(vlSelf->CPU__DOT__d_rlast))
                                                    ? 
-                                                  ((0xaU 
-                                                    == 
-                                                    (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                                     >> 0x1cU))
+                                                  ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__uncache)
                                                     ? 3U
                                                     : 2U)
                                                    : 1U))
                                       : (((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__rvalid_pipe) 
                                           | (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe))
-                                          ? ((0xaU 
-                                              == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                                  >> 0x1cU))
-                                              ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__rvalid_pipe)
-                                                  ? 1U
-                                                  : 
-                                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe)
-                                                   ? 3U
-                                                   : 0U))
+                                          ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__uncache)
+                                              ? ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__wvalid_pipe)
+                                                  ? 3U
+                                                  : 1U)
                                               : ((0U 
                                                   != (IData)(vlSelf->CPU__DOT__DCache_inst__DOT__hit))
                                                   ? 0U
@@ -276,8 +268,7 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
                                 << 3U)));
         bufp->chgIData(oldp+59,(((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__data_from_mem)
                                   ? __Vtemp_5[0U] : 
-                                 ((0xaU == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                            >> 0x1cU))
+                                 ((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__uncache)
                                    ? __Vtemp_6[0U] : 
                                   __Vtemp_7[0U]))),32);
         bufp->chgIData(oldp+60,((0xfffffff0U & vlSelf->CPU__DOT__ICache_inst__DOT__addr_pipe)),32);
@@ -451,54 +442,51 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+204,(vlSelf->CPU__DOT__DCache_inst__DOT__write_counter_reset));
         bufp->chgCData(oldp+205,(vlSelf->CPU__DOT__DCache_inst__DOT__addr_cnt),5);
         bufp->chgBit(oldp+206,(vlSelf->CPU__DOT__DCache_inst__DOT__addr_cnt_add));
-        bufp->chgBit(oldp+207,((0xaU == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                         >> 0x1cU))));
+        bufp->chgBit(oldp+207,(vlSelf->CPU__DOT__DCache_inst__DOT__uncache));
         bufp->chgBit(oldp+208,(vlSelf->CPU__DOT__DCache_inst__DOT__read_from_cnt));
-        __Vtemp_10[0U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
+        __Vtemp_9[0U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__DCache_inst__DOT____VdfgTmp_ha6d4d8ec__0)))][0U];
-        __Vtemp_10[1U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
+        __Vtemp_9[1U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__DCache_inst__DOT____VdfgTmp_ha6d4d8ec__0)))][1U];
-        __Vtemp_10[2U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
+        __Vtemp_9[2U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__DCache_inst__DOT____VdfgTmp_ha6d4d8ec__0)))][2U];
-        __Vtemp_10[3U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
+        __Vtemp_9[3U] = vlSelf->CPU__DOT__DCache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__DCache_inst__DOT____VdfgTmp_ha6d4d8ec__0)))][3U];
-        VL_SHIFTR_WWI(128,128,7, __Vtemp_11, __Vtemp_10, 
+        VL_SHIFTR_WWI(128,128,7, __Vtemp_10, __Vtemp_9, 
                       (0x60U & (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
                                 << 3U)));
-        bufp->chgWData(oldp+209,(__Vtemp_11),128);
-        VL_SHIFTR_WWI(128,128,32, __Vtemp_12, vlSelf->CPU__DOT__DCache_inst__DOT__ret_buf, 0x60U);
-        VL_SHIFTR_WWI(128,128,7, __Vtemp_13, vlSelf->CPU__DOT__DCache_inst__DOT__ret_buf, 
+        bufp->chgWData(oldp+209,(__Vtemp_10),128);
+        VL_SHIFTR_WWI(128,128,32, __Vtemp_11, vlSelf->CPU__DOT__DCache_inst__DOT__ret_buf, 0x60U);
+        VL_SHIFTR_WWI(128,128,7, __Vtemp_12, vlSelf->CPU__DOT__DCache_inst__DOT__ret_buf, 
                       (0x60U & (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
                                 << 3U)));
-        if ((0xaU == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                      >> 0x1cU))) {
-            __Vtemp_15[0U] = __Vtemp_12[0U];
-            __Vtemp_15[1U] = __Vtemp_12[1U];
-            __Vtemp_15[2U] = __Vtemp_12[2U];
-            __Vtemp_15[3U] = __Vtemp_12[3U];
+        if (vlSelf->CPU__DOT__DCache_inst__DOT__uncache) {
+            __Vtemp_13[0U] = __Vtemp_11[0U];
+            __Vtemp_13[1U] = __Vtemp_11[1U];
+            __Vtemp_13[2U] = __Vtemp_11[2U];
+            __Vtemp_13[3U] = __Vtemp_11[3U];
         } else {
-            __Vtemp_15[0U] = __Vtemp_13[0U];
-            __Vtemp_15[1U] = __Vtemp_13[1U];
-            __Vtemp_15[2U] = __Vtemp_13[2U];
-            __Vtemp_15[3U] = __Vtemp_13[3U];
+            __Vtemp_13[0U] = __Vtemp_12[0U];
+            __Vtemp_13[1U] = __Vtemp_12[1U];
+            __Vtemp_13[2U] = __Vtemp_12[2U];
+            __Vtemp_13[3U] = __Vtemp_12[3U];
         }
-        bufp->chgWData(oldp+213,(__Vtemp_15),128);
+        bufp->chgWData(oldp+213,(__Vtemp_13),128);
         bufp->chgCData(oldp+217,(vlSelf->CPU__DOT__DCache_inst__DOT__state),2);
         bufp->chgCData(oldp+218,(vlSelf->CPU__DOT__DCache_inst__DOT__wfsm_state),2);
-        bufp->chgCData(oldp+219,(((0xaU == (vlSelf->CPU__DOT__DCache_inst__DOT__addr_pipe 
-                                            >> 0x1cU))
+        bufp->chgCData(oldp+219,(((IData)(vlSelf->CPU__DOT__DCache_inst__DOT__uncache)
                                    ? 0U : 3U)),3);
         bufp->chgSData(oldp+220,(vlSelf->CPU__DOT__DCache_inst__DOT__mem_we
                                  [0U]),16);
-        __Vtemp_16[0U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_14[0U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__addr_r][0U];
-        __Vtemp_16[1U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_14[1U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__addr_r][1U];
-        __Vtemp_16[2U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_14[2U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__addr_r][2U];
-        __Vtemp_16[3U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_14[3U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__addr_r][3U];
-        bufp->chgWData(oldp+221,(__Vtemp_16),128);
+        bufp->chgWData(oldp+221,(__Vtemp_14),128);
         bufp->chgCData(oldp+225,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__addr_r),4);
         bufp->chgWData(oldp+226,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram[0]),128);
         bufp->chgWData(oldp+230,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram[1]),128);
@@ -518,15 +506,15 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgWData(oldp+286,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem0__DOT__ram[15]),128);
         bufp->chgSData(oldp+290,(vlSelf->CPU__DOT__DCache_inst__DOT__mem_we
                                  [1U]),16);
-        __Vtemp_17[0U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_15[0U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__addr_r][0U];
-        __Vtemp_17[1U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_15[1U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__addr_r][1U];
-        __Vtemp_17[2U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_15[2U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__addr_r][2U];
-        __Vtemp_17[3U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_15[3U] = vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__addr_r][3U];
-        bufp->chgWData(oldp+291,(__Vtemp_17),128);
+        bufp->chgWData(oldp+291,(__Vtemp_15),128);
         bufp->chgCData(oldp+295,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__addr_r),4);
         bufp->chgWData(oldp+296,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram[0]),128);
         bufp->chgWData(oldp+300,(vlSelf->CPU__DOT__DCache_inst__DOT__data_mem1__DOT__ram[1]),128);
@@ -634,34 +622,34 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+439,(vlSelf->CPU__DOT__ICache_inst__DOT__lru_refill_update));
         bufp->chgBit(oldp+440,(vlSelf->CPU__DOT__ICache_inst__DOT__data_from_mem));
         bufp->chgBit(oldp+441,(vlSelf->CPU__DOT__ICache_inst__DOT__flush_buf));
-        __Vtemp_18[0U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
+        __Vtemp_16[0U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__ICache_inst__DOT____VdfgTmp_h32c1d4e2__0)))][0U];
-        __Vtemp_18[1U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
+        __Vtemp_16[1U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__ICache_inst__DOT____VdfgTmp_h32c1d4e2__0)))][1U];
-        __Vtemp_18[2U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
+        __Vtemp_16[2U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__ICache_inst__DOT____VdfgTmp_h32c1d4e2__0)))][2U];
-        __Vtemp_18[3U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
+        __Vtemp_16[3U] = vlSelf->CPU__DOT__ICache_inst__DOT__mem_rdata
             [(1U & (~ (IData)(vlSelf->CPU__DOT__ICache_inst__DOT____VdfgTmp_h32c1d4e2__0)))][3U];
-        VL_SHIFTR_WWI(128,128,7, __Vtemp_19, __Vtemp_18, 
+        VL_SHIFTR_WWI(128,128,7, __Vtemp_17, __Vtemp_16, 
                       (0x60U & (vlSelf->CPU__DOT__ICache_inst__DOT__addr_pipe 
                                 << 3U)));
-        bufp->chgWData(oldp+442,(__Vtemp_19),128);
-        VL_SHIFTR_WWI(128,128,7, __Vtemp_20, vlSelf->CPU__DOT__ICache_inst__DOT__ret_buf, 
+        bufp->chgWData(oldp+442,(__Vtemp_17),128);
+        VL_SHIFTR_WWI(128,128,7, __Vtemp_18, vlSelf->CPU__DOT__ICache_inst__DOT__ret_buf, 
                       (0x60U & (vlSelf->CPU__DOT__ICache_inst__DOT__addr_pipe 
                                 << 3U)));
-        bufp->chgWData(oldp+446,(__Vtemp_20),128);
+        bufp->chgWData(oldp+446,(__Vtemp_18),128);
         bufp->chgSData(oldp+450,(vlSelf->CPU__DOT__ICache_inst__DOT__lru),16);
         bufp->chgCData(oldp+451,(vlSelf->CPU__DOT__ICache_inst__DOT__state),2);
         bufp->chgBit(oldp+452,((1U & (IData)(vlSelf->CPU__DOT__ICache_inst__DOT__mem_we))));
-        __Vtemp_21[0U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_19[0U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__addr_r][0U];
-        __Vtemp_21[1U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_19[1U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__addr_r][1U];
-        __Vtemp_21[2U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_19[2U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__addr_r][2U];
-        __Vtemp_21[3U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
+        __Vtemp_19[3U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__addr_r][3U];
-        bufp->chgWData(oldp+453,(__Vtemp_21),128);
+        bufp->chgWData(oldp+453,(__Vtemp_19),128);
         bufp->chgCData(oldp+457,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__addr_r),4);
         bufp->chgWData(oldp+458,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram[0]),128);
         bufp->chgWData(oldp+462,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram[1]),128);
@@ -681,15 +669,15 @@ void VCPU___024root__trace_chg_sub_0(VCPU___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgWData(oldp+518,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem0__DOT__ram[15]),128);
         bufp->chgBit(oldp+522,((1U & ((IData)(vlSelf->CPU__DOT__ICache_inst__DOT__mem_we) 
                                       >> 1U))));
-        __Vtemp_22[0U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_20[0U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__addr_r][0U];
-        __Vtemp_22[1U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_20[1U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__addr_r][1U];
-        __Vtemp_22[2U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_20[2U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__addr_r][2U];
-        __Vtemp_22[3U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
+        __Vtemp_20[3U] = vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram
             [vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__addr_r][3U];
-        bufp->chgWData(oldp+523,(__Vtemp_22),128);
+        bufp->chgWData(oldp+523,(__Vtemp_20),128);
         bufp->chgCData(oldp+527,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__addr_r),4);
         bufp->chgWData(oldp+528,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram[0]),128);
         bufp->chgWData(oldp+532,(vlSelf->CPU__DOT__ICache_inst__DOT__data_mem1__DOT__ram[1]),128);
